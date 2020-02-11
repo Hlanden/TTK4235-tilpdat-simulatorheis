@@ -63,7 +63,7 @@ int hardware_init() {
 
     send(sockfd, (char[4]) {0}, 4, 0);
 
-    return 1; //jalla
+    return 0; //jalla
 }
 
 
