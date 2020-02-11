@@ -17,11 +17,10 @@ Testet og funker på Linux. Kan ikke garantere noe på Windows. Alt som står he
 
 4. Bytt ut `driver`-mappen og makefilen i skjelettprosjektet med disse.
 
-5. Endre alle include-statements fra `hardware.h` til `driver/hardware.h`
 
-6. Kompiler heisprogrammet ditt med de nye filene (`make`) og kjør det (`./elevator`). Hvis heisprogrammet kjører som det skal og alt funker, så skal det nå stå "Connected" i simulatorvinduet. Bruk tastene **qwe, sdf og zxcv** på tastaturet for å "trykke" på bestillingsknappene i heisen.
+5. Kompiler heisprogrammet ditt med de nye filene (`make`) og kjør det (`./elevator`). Hvis heisprogrammet kjører som det skal og alt funker, så skal det nå stå "Connected" i simulatorvinduet. Bruk tastene **qwe, sdf og zxcv** på tastaturet for å "trykke" på bestillingsknappene i heisen.
 
-7. Wooho, kjør heis og vær glad.
+6. Wooho, kjør heis og vær glad.
 
 ## Hvordan bytte mellom simulator og heisen på sal
 
