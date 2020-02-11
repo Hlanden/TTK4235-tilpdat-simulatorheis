@@ -1,5 +1,7 @@
 # Simulator for tilpdat-heislab
 
+Forket fra [erlendb/TTK4235-tipdat-simulatorheis](https://github.com/erlendb/TTK4235-tilpdat-simulatorheis), og oppdatert til utleverte drivere fra 2020.
+
 Heissimulator og kode for å kjøre din egen heis i simulator. For heislab i TTK4235 Tilpassede datasystemer.
 
 Med denne greia kan du altså teste heiskoden din i simulator, så du slipper å sitte på sal med den fysiske heisen.
@@ -13,25 +15,21 @@ Testet og funker på Linux. Kan ikke garantere noe på Windows. Alt som står he
 
 3. Kjør kommandoen `./SimElevatorServer` i terminalen for å starte simulatoren.
 
-4. Last ned [*elev.h*](https://github.com/erlendb/TTK4235-tilpdat-simulatorheis/blob/master/elev.h) og [*elev.c*](https://github.com/erlendb/TTK4235-tilpdat-simulatorheis/blob/master/elev.c). Disse filene må du bruke i heisprogrammet ditt istedenfor de gamle *elev.h* og *elev.c* som du hadde fra før.
+4. Bytt ut `driver`-mappen og makefilen i skjelettprosjektet med disse.
 
-5. Kompiler heisprogrammet ditt med de nye filene (`make`) og kjør det (`./heis`). Hvis heisprogrammet kjører som det skal og alt funker, så skal det nå stå "Connected" i simulatorvinduet. Bruk tastene **qwe, sdf og zxcv** på tastaturet for å "trykke" på bestillingsknappene i heisen.
+5. Endre alle include-statements fra `hardware.h` til `driver/hardware.h`
 
-6. Wooho, kjør heis og vær glad.
+6. Kompiler heisprogrammet ditt med de nye filene (`make`) og kjør det (`./elevator`). Hvis heisprogrammet kjører som det skal og alt funker, så skal det nå stå "Connected" i simulatorvinduet. Bruk tastene **qwe, sdf og zxcv** på tastaturet for å "trykke" på bestillingsknappene i heisen.
+
+7. Wooho, kjør heis og vær glad.
 
 ## Hvordan bytte mellom simulator og heisen på sal
 
-For å kjøre heisen **i simulator** må det stå følgende øverst i både *elev.c* og *elev.h*:
-~~~c
-#define SIMULATOR
+For å bygge heisen **for simulator** må det stå følgende øverst i makefilen: 
+~~~make
+SIM := true
 ~~~
-
-For å kjøre heisen **på sal** må det stå følgende øverst i både *elev.c* og *elev.h*:
-~~~c
-#define SAL
-~~~
-
-`SIMULATOR` og `SAL` er to konstanter som kan defineres. Både *elev.c* og *elev.h* inneholder kode for både simulator og for sal. Hvilken av konstantene du definerer avgjør hvorvidt kode for simulator eller kode for sal blir kompilert (se etter `#ifdef SIMULATOR` og `#ifdef SAL` i *elev.c* og *elev.h* hvis du er nysgjerrig).
+Detsom det ikke står vil heisen bygges for sal.
 
 ## Litt mer info om simulatoren
 
@@ -40,31 +38,6 @@ Inne i simulatoren kan du "trykke" på bestillingsknapper med qwe (opp), sdf (ne
 Teknisk info og bedre bruksanvisning for simulatoren finner du på https://github.com/TTK4145/Simulator-v2
 
 For å avslutte simulatoren kan du trykke `ctrl+c`.
-
-## Litt mer info om driveren
-
-*elev.c* og *elev.h* er satt opp på følgende måte:
-
-~~~c
-#define SIMULATOR   // #define SIMULATOR hvis du skal kjøre heisen i simulator
-//#define SAL       // #define SAL hvis du skal kjøre heisprogrammet i heisen på sanntidssal.
-
-
-#ifdef SIMULATOR
-
-  // Her ligger driveren for simulatoren.
-  // Denne koden kjøres hvis du har satt inn #define SIMULATOR øverst i fila.
-
-#endif //#ifdef SIMULATOR
-
-#ifdef SAL
-
-  // Her ligger driveren for den fysiske heisen på sal.
-  // Denne koden kjøres hvis du har satt inn #define SAL øverst i fila.
-
-#endif //#ifdef SAL
-~~~
-
 
 ## Takk til
 
