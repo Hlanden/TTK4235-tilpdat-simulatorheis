@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "hardware.h"
+#include "driver/hardware.h"
 
 int main(){
     int error = hardware_init();
