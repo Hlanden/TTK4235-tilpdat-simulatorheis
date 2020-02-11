@@ -1,5 +1,14 @@
-#ifndef HARDWARE_SAL_H
-#define HARDWARE_SAL_H
+/**
+ * @file
+ * @brief Driver for the elevator hardware.
+ *
+ * Neatly wraps up Martin Korsgaard's spaghetti
+ * from 2006 ;)
+ *
+ * Kolbjørn Austreng
+ */
+#ifndef HARDWARE_H
+#define HARDWARE_H
 #define HARDWARE_NUMBER_OF_FLOORS 4
 #define HARDWARE_NUMBER_OF_BUTTONS 3
 
