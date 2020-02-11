@@ -20,6 +20,8 @@ int hardware_movement_to_legacy(HardwareMovement hardware_movement)
       return -1;
     case HARDWARE_MOVEMENT_STOP:
       return 0;
+    default:
+      return 0;
   }
 }
 

@@ -15,7 +15,7 @@ Testet og funker på Linux. Kan ikke garantere noe på Windows. Alt som står he
 
 3. Kjør kommandoen `./SimElevatorServer` i terminalen for å starte simulatoren.
 
-4. Bytt ut `driver`-mappen og makefilen i skjelettprosjektet med disse.
+4. Bytt ut `source`-mappen og makefilen i skjelettprosjektet med disse.
 
 
 5. Kompiler heisprogrammet ditt med de nye filene (`make`) og kjør det (`./elevator`). Hvis heisprogrammet kjører som det skal og alt funker, så skal det nå stå "Connected" i simulatorvinduet. Bruk tastene **qwe, sdf og zxcv** på tastaturet for å "trykke" på bestillingsknappene i heisen.
