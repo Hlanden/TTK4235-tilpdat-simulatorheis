@@ -1,13 +1,3 @@
-// github.com/erlendb
-//
-// Denne filen inneholder heisdriveren (hardware.c) for både simulatoren og heisen på sal.
-// For å velge om du skal bruke simulator eller heisen på sal må du endre kodelinjen under
-#define SIMULATOR   // #define SIMULATOR hvis du skal kjøre heisen i simulator
-//#define SAL       // #define SAL hvis du skal kjøre heisprogrammet i heisen på sanntidssal.
-
-
-#ifdef SIMULATOR //Koden herfra og ned til første #endif kjøres hvis du har satt inn #define SIMULATOR over
-
 #include <assert.h>
 #include <stdlib.h>
 #include <sys/socket.h>
@@ -15,7 +5,7 @@
 #include <stdio.h>
 #include <pthread.h>
 
-#include "hardware_sim.h"
+#include "hardware.h"
 
 static int sockfd;
 static pthread_mutex_t sockmtx;
@@ -59,19 +49,19 @@ void hardware_command_movement(HardwareMovement movement) {
 
 void hardware_command_order_light(int floor, HardwareOrder order_type, int on) {
     assert(floor >= 0);
-    assert(floor < N_FLOORS);
-    assert(button >= 0);
-    assert(button < N_BUTTONS);
+    assert(floor < HARDWARE_NUMBER_OF_FLOORS);
+    assert(order_type >= 0);
+    assert(order_type < HARDWARE_NUMBER_OF_BUTTONS);
 
     pthread_mutex_lock(&sockmtx);
-    send(sockfd, (char[4]) {2, button, floor, on}, 4, 0);
+    send(sockfd, (char[4]) {2, order_type, floor, on}, 4, 0);
     pthread_mutex_unlock(&sockmtx);
 }
 
 
 void hardware_command_floor_indicator_on(int floor) {
     assert(floor >= 0);
-    assert(floor < N_FLOORS);
+    assert(floor < HARDWARE_NUMBER_OF_FLOORS);
 
     pthread_mutex_lock(&sockmtx);
     send(sockfd, (char[4]) {3, floor}, 4, 0);
@@ -132,6 +122,3 @@ int hardware_read_obstruction_signal(void) {
     pthread_mutex_unlock(&sockmtx);
     return buf[1];
 }
-
-#endif //#ifdef SIMULATOR - her er det slutt på koden som brukes til simulatoren.
-
