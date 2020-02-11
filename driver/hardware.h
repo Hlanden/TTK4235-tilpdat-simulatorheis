@@ -7,9 +7,9 @@
  * @brief Movement type used in @c hardware_command_movement.
  */
 typedef enum {
-    HARDWARE_MOVEMENT_UP = 1,
-    HARDWARE_MOVEMENT_STOP = 0,
-    HARDWARE_MOVEMENT_DOWN = -1
+    HARDWARE_MOVEMENT_UP,
+    HARDWARE_MOVEMENT_STOP,
+    HARDWARE_MOVEMENT_DOWN
 } HardwareMovement;
 
 /**
@@ -17,9 +17,9 @@ typedef enum {
  * and in @c hardware_command_order_light.
  */
 typedef enum {
-    HARDWARE_ORDER_UP = 0,
-    HARDWARE_ORDER_INSIDE = 2,
-    HARDWARE_ORDER_DOWN = 1
+    HARDWARE_ORDER_UP,
+    HARDWARE_ORDER_INSIDE,
+    HARDWARE_ORDER_DOWN
 } HardwareOrder;
 
 /**

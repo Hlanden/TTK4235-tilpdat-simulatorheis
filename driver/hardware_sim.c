@@ -10,6 +10,35 @@
 static int sockfd;
 static pthread_mutex_t sockmtx;
 
+int hardware_movement_to_legacy(HardwareMovement hardware_movement)
+{
+  switch (hardware_movement)
+  {
+    case HARDWARE_MOVEMENT_UP:
+      return 1;
+    case HARDWARE_MOVEMENT_DOWN:
+      return -1;
+    case HARDWARE_MOVEMENT_STOP:
+      return 0;
+  }
+}
+
+int hardware_order_to_legacy(HardwareOrder hardware_order)
+{
+  switch (hardware_order)
+  {
+    case HARDWARE_ORDER_UP:
+      return 0;
+    case HARDWARE_ORDER_DOWN:
+      return 1;
+    case HARDWARE_ORDER_INSIDE:
+      return 2;
+    default:
+      return -1;
+  }
+}
+
+
 int hardware_init() {
     char ip[16] = "localhost";
     char port[8] = "15657";
@@ -42,7 +71,7 @@ int hardware_init() {
 
 void hardware_command_movement(HardwareMovement movement) {
     pthread_mutex_lock(&sockmtx);
-    send(sockfd, (char[4]) {1, movement}, 4, 0);
+    send(sockfd, (char[4]) {1, hardware_movement_to_legacy(movement)}, 4, 0);
     pthread_mutex_unlock(&sockmtx);
 }
 
@@ -54,7 +83,7 @@ void hardware_command_order_light(int floor, HardwareOrder order_type, int on) {
     assert(order_type < HARDWARE_NUMBER_OF_BUTTONS);
 
     pthread_mutex_lock(&sockmtx);
-    send(sockfd, (char[4]) {2, order_type, floor, on}, 4, 0);
+    send(sockfd, (char[4]) {2, hardware_order_to_legacy(order_type), floor, on}, 4, 0);
     pthread_mutex_unlock(&sockmtx);
 }
 
@@ -86,7 +115,7 @@ void hardware_command_stop_light(int on) {
 
 int hardware_read_order(int floor, HardwareOrder order_type) {
     pthread_mutex_lock(&sockmtx);
-    send(sockfd, (char[4]) {6, order_type, floor}, 4, 0);
+    send(sockfd, (char[4]) {6, hardware_order_to_legacy(order_type), floor}, 4, 0);
     char buf[4];
     recv(sockfd, buf, 4, 0);
     pthread_mutex_unlock(&sockmtx);
